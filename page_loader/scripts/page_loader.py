@@ -13,6 +13,13 @@ def main():
     parser = argparse.ArgumentParser(description='Page loader')
     parser.add_argument('--output', action='store', help='set output dir')
     parser.add_argument('webpage', type=str)
+    parser.add_argument(
+        '--log',
+        type=str,
+        action='store',
+        choices=['all', 'errors', 'nothing'],
+        default='nothing',
+    )
     args = parser.parse_args()
     download(args.output, args.webpage)
 
