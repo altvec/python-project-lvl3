@@ -17,6 +17,6 @@ build: lint test
 	@poetry build
 
 publish:
-	@poetry publish -r test-repo
+	@poetry publish -r testing
 
 .PHONY: all install package-install lint test build publish
