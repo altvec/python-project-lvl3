@@ -21,7 +21,6 @@ def create_resources_dir_name(path):
 @debug_logger
 def create_resource_name(res):
     """Create local resource file name."""
-    log.debug(f'Creating new name for {res}')
     base, ext = os.path.splitext(res)
     base = re.sub(r'[\W_]', '-', base.replace('/', '', 1))
     return f'{base}{ext}'
