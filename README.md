@@ -15,7 +15,7 @@ pip install --user --index-url https://test.pypi.org/simple/ --extra-index-url h
 ## Usage
 
 ``` bash
-usage: page-loader [-h] [--output OUTPUT] webpage
+usage: page-loader [-h] [--output OUTPUT] [--log-level {INFO,DEBUG}] webpage
 
 Page loader
 
@@ -23,8 +23,9 @@ positional arguments:
   webpage
 
 optional arguments:
-  -h, --help       show this help message and exit
-  --output OUTPUT  set output dir
+  -h, --help            show this help message and exit
+  --output OUTPUT       set output dir
+  --log-level {INFO,DEBUG}
 ```
 
 ## Downloading simple webpage
@@ -34,3 +35,19 @@ page-loader --output . http://example.com
 ```
 
 [![asciicast](https://asciinema.org/a/CNIZ4DO7kT0wNqTcm3QbMybTe.svg)](https://asciinema.org/a/CNIZ4DO7kT0wNqTcm3QbMybTe)
+
+## Downloading webpage with local resources
+
+``` bash
+page-loader --output /tmp/ https://ru.hexlet.io/courses
+```
+
+[![asciicast](https://asciinema.org/a/Xk6o4tNfi5VQyLKtpqQzrbzhk.svg)](https://asciinema.org/a/Xk6o4tNfi5VQyLKtpqQzrbzhk)
+
+## Downloadig webpage with local resources and DEBUG mode
+
+``` bash
+page-loader --output /tmp/ --log-level DEBUG https://ru.hexlet.io/courses
+```
+
+[![asciicast](https://asciinema.org/a/PvfKaog7eyr5dbiEifmdvwLz3.svg)](https://asciinema.org/a/PvfKaog7eyr5dbiEifmdvwLz3)
