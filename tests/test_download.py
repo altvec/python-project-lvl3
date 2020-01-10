@@ -39,9 +39,14 @@ def test_404_exception():
     with TemporaryDirectory() as tmpdir:
         with pytest.raises(HTTPError) as excinfo:
             url = 'https://grishaev.me/bookshelf2'
-            downloader(
-                tmpdir,
-                url,
-                'INFO',
-            )
+            downloader(tmpdir, url, 'INFO')
         assert '404 Client Error' in str(excinfo.value)
+
+
+def test_permissions_exception():
+    with TemporaryDirectory() as tmpdir:
+        os.chmod(tmpdir, 400)
+        with pytest.raises(PermissionError) as excinfo:
+            url = 'https://hexlet.io/courses'
+            downloader(tmpdir, url, 'INFO')
+        assert 'Permission denied' in str(excinfo.value)

@@ -23,20 +23,17 @@ def get_url(url):
         res.raise_for_status()
     except requests.HTTPError as err:
         log.exception(
-            ''.join(err.args),
+            str(err.args),
             exc_info=log.getEffectiveLevel() == logging.DEBUG,
         )
-        raise
+        raise err
     return res
 
 
 def create_dir(path):
     """Create directory."""
     if not os.path.exists(path):
-        try:
-            os.makedirs(path)
-        except OSError as err:
-            log.exception(''.join(err.args))
+        os.makedirs(path)
 
 
 def save(path, data, mode='w'):
@@ -44,8 +41,12 @@ def save(path, data, mode='w'):
     try:
         with open(path, mode) as f:
             f.write(data)
-    except IOError as err:
-        log.exception(''.join(err.args))
+    except PermissionError as err:
+        log.exception(
+            'Permission denied',
+            exc_info=log.getEffectiveLevel() == logging.DEBUG,
+        )
+        raise err
 
 
 def debug_logger(func):

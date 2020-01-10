@@ -31,7 +31,14 @@ def main():
         level=logging.getLevelName(args.log_level),
     )
 
-    downloader(args.output, args.webpage, args.log_level)
+    try:
+        downloader(args.output, args.webpage, args.log_level)
+    except Exception as e:
+        if 'url' in str(e.args):
+            sys.exit(1)
+        elif 'Permission denied' in str(e.args):
+            sys.exit(2)
+    sys.exit(0)
 
 
 if __name__ == '__main__':
