@@ -9,13 +9,13 @@ import pytest
 from bs4 import BeautifulSoup
 from requests.exceptions import HTTPError
 
-from page_loader.downloader import downloader
+from page_loader.downloader import download
 
 
 def test_download():
     with TemporaryDirectory() as tmpdir:
         expected_file_name = os.path.join(tmpdir, 'example-com.html')
-        downloader(tmpdir, 'http://example.com', 'INFO')
+        download(tmpdir, 'http://example.com')
         with open(expected_file_name, 'r') as f1:
             actual_content = f1.read()
             with open('./tests/fixtures/example-com.html', 'r') as f2:
@@ -27,7 +27,7 @@ def test_download():
 
 def test_has_local_resources():
     with TemporaryDirectory() as tmpdir:
-        downloader(tmpdir, 'https://ru.hexlet.io/pages/about', 'INFO')
+        download(tmpdir, 'https://ru.hexlet.io/pages/about')
         expected_files_dir = os.path.join(
             tmpdir,
             'ru-hexlet-io-pages-about_files',
@@ -39,7 +39,7 @@ def test_404_exception():
     with TemporaryDirectory() as tmpdir:
         with pytest.raises(HTTPError) as excinfo:
             url = 'https://grishaev.me/bookshelf2'
-            downloader(tmpdir, url, 'INFO')
+            download(tmpdir, url)
         assert '404 Client Error' in str(excinfo.value)
 
 
@@ -48,5 +48,5 @@ def test_permissions_exception():
         os.chmod(tmpdir, 400)
         with pytest.raises(PermissionError) as excinfo:
             url = 'https://hexlet.io/courses'
-            downloader(tmpdir, url, 'INFO')
+            download(tmpdir, url)
         assert 'Permission denied' in str(excinfo.value)

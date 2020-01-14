@@ -4,6 +4,7 @@
 import logging
 import os
 from functools import wraps
+from urllib.parse import urlsplit
 
 import requests
 
@@ -26,8 +27,13 @@ def get_url(url):
             str(err.args),
             exc_info=log.getEffectiveLevel() == logging.DEBUG,
         )
-        raise err
+        raise
     return res
+
+
+def url_site(url):
+    """Make site's url."""
+    return '://'.join(urlsplit(url)[0:2])
 
 
 def create_dir(path):
@@ -53,9 +59,7 @@ def debug_logger(func):
     """Log decorator function."""
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if kwargs:
-            log.debug(f'{func.__name__} :: input: {args} {kwargs}')
-        log.debug(f'{func.__name__} :: input: {args}')
+        log.debug(f'{func.__name__} :: input: {args} {kwargs}')
         result = func(*args, **kwargs)
         log.debug(f'{func.__name__} :: return: {str(result)}')
         return result

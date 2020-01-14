@@ -3,36 +3,20 @@
 
 """Page loader script."""
 
-import argparse
-import logging
 import sys
 
-from page_loader.downloader import downloader
+from page_loader.cli import parse_args
+from page_loader.downloader import download
+from page_loader.logging import configure_logger
 
 
 def main():
     """Download and save specified webpage."""
-    parser = argparse.ArgumentParser(description='Page loader')
-    log_levels = ('INFO', 'DEBUG')
-    parser.add_argument('--output', action='store', help='set output dir')
-    parser.add_argument('webpage', type=str)
-    parser.add_argument(
-        '--log-level',
-        action='store',
-        choices=log_levels,
-        default='INFO',
-    )
-    args = parser.parse_args()
-
-    log_format = '[ %(levelname)s ] %(name)s :: %(message)s'
-    logging.basicConfig(
-        handlers=[logging.StreamHandler(sys.stdout)],
-        format=log_format,
-        level=logging.getLevelName(args.log_level),
-    )
+    args = parse_args()
+    configure_logger(args.log_level)
 
     try:
-        downloader(args.output, args.webpage, args.log_level)
+        download(args.output, args.webpage)
     except Exception as e:
         if 'url' in str(e.args):
             sys.exit(1)

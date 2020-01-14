@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """Local resources."""
+import itertools
 import logging
 import os
 
@@ -17,7 +18,7 @@ def download_resources(resources, base_url, resources_dir_name):
     create_dir(resources_dir_name)
     total_size = len(resources)
     with Bar('Downloading', max=total_size) as bar:
-        for r, _ in zip(resources, range(total_size)):
+        for r in itertools.islice(resources, total_size):
             url = f'{base_url}/{r["old_value"]}'
             path = os.path.join(resources_dir_name, r['new_value'])
             save(path, get_url(url).content, 'wb')
