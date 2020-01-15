@@ -11,7 +11,7 @@ lint:
 	@poetry run flake8 page_loader
 
 test:
-	@poetry run pytest -v
+	@poetry run pytest -vv --cov=page_loader tests/ --cov-report xml
 
 build: lint test
 	@poetry build

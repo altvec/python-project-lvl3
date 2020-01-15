@@ -25,6 +25,8 @@ progress = "^1.5"
 pytest = "^4.4"
 wemake-python-styleguide = "^0.8.1"
 flake8 = "^3.7"
+coverage = "^5.0.3"
+pytest-cov = "^2.8.1"
 
 [tool.poetry.scripts]
 page-loader = "page_loader.scripts.page_loader:main"
