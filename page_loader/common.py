@@ -47,12 +47,12 @@ def save(path, data, mode='w'):
     try:
         with open(path, mode) as f:
             f.write(data)
-    except PermissionError as err:
+    except PermissionError:
         log.exception(
             'Permission denied',
             exc_info=log.getEffectiveLevel() == logging.DEBUG,
         )
-        raise err
+        raise
 
 
 def debug_logger(func):

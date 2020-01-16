@@ -5,6 +5,8 @@
 import logging
 import sys
 
+LEVELS = (INFO, DEBUG) = ('INFO', 'DEBUG')
+
 
 def configure_logger(log_level):
     """Configure app logging."""

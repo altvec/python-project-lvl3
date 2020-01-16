@@ -4,17 +4,22 @@
 
 import argparse
 
+from page_loader import logging
+from page_loader.downloader import download
+from page_loader.logging import configure_logger
 
-def parse_args():
-    """Parse CLI arguments."""
-    parser = argparse.ArgumentParser(description='Page loader')
-    log_levels = ('INFO', 'DEBUG')
-    parser.add_argument('--output', action='store', help='set output dir')
-    parser.add_argument('webpage', type=str)
-    parser.add_argument(
-        '--log-level',
-        action='store',
-        choices=log_levels,
-        default='INFO',
-    )
-    return parser.parse_args()
+parser = argparse.ArgumentParser(description='Page loader')
+parser.add_argument('--output', action='store', help='set output dir')
+parser.add_argument('webpage', type=str)
+parser.add_argument(
+    '--log-level',
+    action='store',
+    choices=logging.LEVELS,
+    default=logging.INFO,
+)
+
+
+def run(args):
+    """Run page loader."""
+    configure_logger(args.log_level)
+    download(args.output, args.webpage)

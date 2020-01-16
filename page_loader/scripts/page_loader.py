@@ -5,18 +5,13 @@
 
 import sys
 
-from page_loader.cli import parse_args
-from page_loader.downloader import download
-from page_loader.logging import configure_logger
+from page_loader import cli
 
 
 def main():
     """Download and save specified webpage."""
-    args = parse_args()
-    configure_logger(args.log_level)
-
     try:
-        download(args.output, args.webpage)
+        cli.run(cli.parser.parse_args())
     except Exception as e:
         if 'url' in str(e.args):
             sys.exit(1)
