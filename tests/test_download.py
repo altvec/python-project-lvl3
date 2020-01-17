@@ -12,27 +12,27 @@ from requests.exceptions import HTTPError
 from page_loader.downloader import download
 
 
+def read_file(path):
+    with open(path) as f:
+        return f.read()
+
+
 def test_download():
     with TemporaryDirectory() as tmpdir:
-        expected_file_name = os.path.join(tmpdir, 'example-com.html')
         download(tmpdir, 'http://example.com')
-        with open(expected_file_name, 'r') as f1:
-            actual_content = f1.read()
-            with open('./tests/fixtures/example-com.html', 'r') as f2:
-                expected_content = f2.read()
-                assert actual_content == str(
-                    BeautifulSoup(expected_content, 'html.parser').prettify(),
-                )
+        actual = read_file(os.path.join(tmpdir, 'example-com.html'))
+        expected = read_file('./tests/fixtures/example-com.html')
+        assert actual == expected
 
 
 def test_has_local_resources():
     with TemporaryDirectory() as tmpdir:
         download(tmpdir, 'https://ru.hexlet.io/pages/about')
-        expected_files_dir = os.path.join(
+        expected = os.path.join(
             tmpdir,
             'ru-hexlet-io-pages-about_files',
         )
-        assert len(os.listdir(os.path.join(expected_files_dir))) != 0
+        assert len(os.listdir(os.path.join(expected))) != 0
 
 
 def test_404_exception():
