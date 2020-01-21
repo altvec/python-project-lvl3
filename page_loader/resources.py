@@ -15,6 +15,7 @@ log = logging.getLogger(__name__)
 
 def download_resources(resources, base_url, resources_dir_name):
     """Download local resources."""
+    log.info(f'Saving local resources ...')
     create_dir(resources_dir_name)
     total_size = len(resources)
     with Bar('Downloading', max=total_size) as bar:
@@ -45,4 +46,5 @@ def find_resources(soup, path):
                         path,
                         new_attr_val,
                     )
+    log.info(f'Found {len(resources)} local resource(s) to save.')
     return (soup, resources)

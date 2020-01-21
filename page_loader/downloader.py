@@ -20,6 +20,7 @@ def download(output, url):
     html_file_path = os.path.join(output, create_html_file_name(url))
     resources_dir_name = create_resources_dir_name(html_file_path)
 
+    log.info(f'Saving {url} to the {output} ...')
     soup, resources = find_resources(
         BeautifulSoup(get_url(url).content, 'html.parser'),
         resources_dir_name,
@@ -32,3 +33,5 @@ def download(output, url):
             url_site(url),
             resources_dir_name,
         )
+
+    log.info(f'Done. You can open saved page from: {html_file_path}')

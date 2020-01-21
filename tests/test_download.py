@@ -21,7 +21,7 @@ def read_file(path):
 def test_parse_args():
     argv = 'http://example.com --output /tmp/ --log-level DEBUG'.split()
     args = cli.parser.parse_args(argv)
-    assert args.webpage == 'http://example.com'
+    assert args.url == 'http://example.com'
     assert args.output == '/tmp/'
     assert args.log_level == 'DEBUG'
 
