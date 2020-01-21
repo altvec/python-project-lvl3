@@ -10,11 +10,20 @@ from bs4 import BeautifulSoup
 from requests.exceptions import HTTPError
 
 from page_loader.downloader import download
+from page_loader import cli
 
 
 def read_file(path):
     with open(path) as f:
         return f.read()
+
+
+def test_parse_args():
+    argv = 'http://example.com --output /tmp/ --log-level DEBUG'.split()
+    args = cli.parser.parse_args(argv)
+    assert args.webpage == 'http://example.com'
+    assert args.output == '/tmp/'
+    assert args.log_level == 'DEBUG'
 
 
 def test_download():
