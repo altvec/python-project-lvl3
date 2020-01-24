@@ -10,7 +10,7 @@ LEVELS = (INFO, DEBUG) = ('INFO', 'DEBUG')
 
 def configure_logger(log_level):
     """Configure app logging."""
-    log_format = '[ %(levelname)s ] :: %(message)s'
+    log_format = '[ %(levelname)-5.5s ] :: %(message)s'
     logging.basicConfig(
         handlers=[logging.StreamHandler(sys.stdout)],
         format=log_format,

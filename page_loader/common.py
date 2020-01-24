@@ -59,8 +59,8 @@ def debug_logger(func):
     """Log decorator function."""
     @wraps(func)
     def wrapper(*args, **kwargs):
-        log.debug(f'{func.__name__} :: input: {args} {kwargs}')
+        log.debug(f'[{func.__name__:>30}] :: input: {args} {kwargs}')
         result = func(*args, **kwargs)
-        log.debug(f'{func.__name__} :: return: {str(result)}')
+        log.debug(f'[{func.__name__:>30}] :: return: {str(result)}')
         return result
     return wrapper
