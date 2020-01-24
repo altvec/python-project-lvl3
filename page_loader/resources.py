@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
 """Local resources."""
-import itertools
 import logging
 import os
 
-from progress.bar import Bar
+from progress.bar import IncrementalBar
 
 from page_loader.common import LOCAL_RESOURCES, create_dir, get_url, save
 from page_loader.names import create_resource_name
@@ -17,13 +16,23 @@ def download_resources(resources, base_url, resources_dir_name):
     """Download local resources."""
     log.info(f'Saving local resources ...')
     create_dir(resources_dir_name)
-    total_size = len(resources)
-    with Bar('Downloading', max=total_size) as bar:
-        for r in itertools.islice(resources, total_size):
+    total_items = len(resources)
+    bar_width = 30
+
+    with IncrementalBar('Downloading:', max=bar_width) as bar:
+        bar.suffix = '%(percent).1f%% (eta: %(eta)s)'
+        filled_bar = 0
+        processed_percentage = 0
+
+        for r in resources:
             url = f'{base_url}/{r["old_value"]}'
             path = os.path.join(resources_dir_name, r['new_value'])
             save(path, get_url(url).content, 'wb')
-            bar.next()
+
+            processed_percentage += (1 / total_items)
+            if processed_percentage >= filled_bar / bar_width:
+                bar.next()
+                filled_bar += 1
 
 
 def find_resources(soup, path):
