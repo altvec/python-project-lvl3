@@ -36,10 +36,10 @@ def test_download():
 
 def test_has_local_resources():
     with TemporaryDirectory() as tmpdir:
-        download(tmpdir, 'https://ru.hexlet.io/pages/about')
+        download(tmpdir, 'https://clojure.org')
         expected = os.path.join(
             tmpdir,
-            'ru-hexlet-io-pages-about_files',
+            'clojure-org_files',
         )
         assert len(os.listdir(os.path.join(expected))) != 0
 
