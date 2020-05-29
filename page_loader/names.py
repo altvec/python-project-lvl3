@@ -31,6 +31,6 @@ def create_html_file_name(res):
     """Create html page file name."""
     parsed = urlparse(res)
     scheme = parsed.scheme
-    page_name = parsed.geturl().lstrip(scheme + '://')
+    page_name = parsed.geturl().lstrip(f'{scheme}://')
     page_name = re.sub(r'[\W_]', '-', page_name)
     return f'{page_name}.html'

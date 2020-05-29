@@ -33,7 +33,7 @@ def get_url(url):
 
 def url_site(url):
     """Make site's url."""
-    return '://'.join(urlsplit(url)[0:2])
+    return '://'.join(urlsplit(url)[0:2])  # noqa: WPS349
 
 
 def create_dir(path):
@@ -60,7 +60,7 @@ def debug_logger(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         log.debug(f'[{func.__name__:>30}] :: input: {args} {kwargs}')
-        result = func(*args, **kwargs)
-        log.debug(f'[{func.__name__:>30}] :: return: {str(result)}')
-        return result
+        res = func(*args, **kwargs)
+        log.debug(f'[{func.__name__:>30}] :: return: {str(res)}')
+        return res
     return wrapper

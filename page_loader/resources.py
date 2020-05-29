@@ -14,13 +14,13 @@ log = logging.getLogger(__name__)
 
 def download_resources(resources, base_url, resources_dir_name):
     """Download local resources."""
-    log.info(f'Saving local resources ...')
+    log.info('Saving local resources ...')
     create_dir(resources_dir_name)
     total_items = len(resources)
     bar_width = 30
 
     with IncrementalBar('Downloading:', max=bar_width) as bar:
-        bar.suffix = '%(percent).1f%% (eta: %(eta)s)'
+        bar.suffix = '%(percent).1f%% (eta: %(eta)s)'  # noqa: WPS323
         filled_bar = 0
         processed_percentage = 0
 
