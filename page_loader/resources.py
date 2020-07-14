@@ -25,7 +25,7 @@ def download_resources(resources, base_url, resources_dir_name):
         processed_percentage = 0
 
         for r in resources:
-            url = f'{base_url}/{r["old_value"]}'
+            url = f'{base_url}{r["old_value"]}'
             path = os.path.join(resources_dir_name, r['new_value'])
             save(path, get_url(url).content, 'wb')
 
