@@ -1,8 +1,9 @@
 # Page loader
 
+[![Github Actions Status](https://github.com/altvec/python-project-lvl3/workflows/Python%20CI/badge.svg)](https://github.com/altvec/python-project-lvl3/actions)
+[![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
 [![Maintainability](https://api.codeclimate.com/v1/badges/48644f081f215379ebad/maintainability)](https://codeclimate.com/github/altvec/python-project-lvl3/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/48644f081f215379ebad/test_coverage)](https://codeclimate.com/github/altvec/python-project-lvl3/test_coverage)
-[![Build Status](https://travis-ci.org/altvec/python-project-lvl3.svg?branch=master)](https://travis-ci.org/altvec/python-project-lvl3)
 
 This is a CLI utility for downloading the specified webpage from the Internets.
 
