@@ -9,7 +9,11 @@ LEVELS = (INFO, DEBUG) = ('INFO', 'DEBUG')
 
 
 def configure_logger(log_level):
-    """Configure app logging."""
+    """Configure app logging.
+
+    Args:
+        log_level: string, sets the desired log verbosity
+    """
     log_format = '[ %(levelname)-5.5s ] :: %(message)s'  # noqa: WPS323
     logging.basicConfig(
         handlers=[logging.StreamHandler(sys.stdout)],

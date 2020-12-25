@@ -4,13 +4,12 @@
 import logging
 import os
 from functools import wraps
-from urllib.parse import urlsplit
 
 import requests
 
 log = logging.getLogger(__name__)
 
-LOCAL_RESOURCES = {
+LOCAL_RESOURCES = {  # noqa: 407
     'link': 'href',
     'script': 'src',
     'img': 'src',
@@ -18,8 +17,18 @@ LOCAL_RESOURCES = {
 
 
 def get_url(url):
-    """Get response from url."""
-    try:
+    """Get response from url.
+
+    Args:
+        url: string
+
+    Raises:
+        requests.HTTPError: on HTTP error
+
+    Returns:
+        requests.models.Response object
+    """
+    try:  # noqa: WPS229
         res = requests.get(url)
         res.raise_for_status()
     except requests.HTTPError as err:
@@ -31,22 +40,30 @@ def get_url(url):
     return res
 
 
-def url_site(url):
-    """Make site's url."""
-    return '://'.join(urlsplit(url)[0:2])  # noqa: WPS349
-
-
 def create_dir(path):
-    """Create directory."""
+    """Create directory.
+
+    Args:
+        path: string
+    """
     if not os.path.exists(path):
         os.makedirs(path)
 
 
-def save(path, data, mode='w'):
-    """Save provided data."""
+def save(path, file_content, mode='w'):
+    """Save provided data.
+
+    Args:
+        path: string that represents file path
+        file_content: file content
+        mode: file writing mode
+
+    Raises:
+        PermissionError: on write permission errors
+    """
     try:
         with open(path, mode) as f:
-            f.write(data)
+            f.write(file_content)
     except PermissionError:
         log.exception(
             'Permission denied',
@@ -56,9 +73,16 @@ def save(path, data, mode='w'):
 
 
 def debug_logger(func):
-    """Log decorator function."""
+    """Log decorator function.
+
+    Args:
+        func: function, that will be decorated
+
+    Returns:
+        function-wrapper around decorated function
+    """
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs):  # noqa: WPS430
         func_name = f'[{func.__name__:>30}]'
 
         log.debug(f'{func_name} :: input: {args} {kwargs}')

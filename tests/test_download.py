@@ -6,11 +6,10 @@ import os
 from tempfile import TemporaryDirectory
 
 import pytest
-from bs4 import BeautifulSoup
 from requests.exceptions import HTTPError
 
 from page_loader.downloader import download
-from page_loader import cli
+from page_loader.cli import make_parser
 
 
 def read_file(path):
@@ -18,12 +17,14 @@ def read_file(path):
         return f.read()
 
 
-def test_parse_args():
-    argv = 'http://example.com --output /tmp/ --log-level DEBUG'.split()
-    args = cli.parser.parse_args(argv)
-    assert args.url == 'http://example.com'
-    assert args.output == '/tmp/'
-    assert args.log_level == 'DEBUG'
+@pytest.mark.parametrize('args', (
+    ['-o', '/tmp/', 'https://example.com'],
+    ['--output', '/tmp/', 'https://example.com'],
+    ['-o', '/tmp/', '-l', 'INFO', 'https://example.com'],
+    ['-o', '/tmp/', '-l', 'DEBUG', 'https://example.com'],
+))
+def test_parse_args(args):
+    make_parser().parse_args(args)
 
 
 def test_download():
