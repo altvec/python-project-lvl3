@@ -2,14 +2,16 @@
 
 """Basic tests."""
 
+import asyncio
 import os
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import pytest
-from requests.exceptions import HTTPError
 
-from page_loader.downloader import download
-from page_loader.cli import make_parser
+from page_loader.cli import parser
+from page_loader.exceptions import LoadingError
+from page_loader.loader import download
 
 
 def read_file(path):
@@ -17,27 +19,19 @@ def read_file(path):
         return f.read()
 
 
-@pytest.mark.parametrize('args', (
-    ['-o', '/tmp/', 'https://example.com'],
-    ['--output', '/tmp/', 'https://example.com'],
-    ['-o', '/tmp/', '-l', 'INFO', 'https://example.com'],
-    ['-o', '/tmp/', '-l', 'DEBUG', 'https://example.com'],
-))
-def test_parse_args(args):
-    make_parser().parse_args(args)
-
-
-def test_download():
+@pytest.mark.asyncio
+async def test_download():
     with TemporaryDirectory() as tmpdir:
-        download(tmpdir, 'http://example.com')
+        await download('http://example.com', Path(tmpdir))
         actual = read_file(os.path.join(tmpdir, 'example-com.html'))
         expected = read_file('./tests/fixtures/example-com.html')
         assert actual == expected
 
 
-def test_has_local_resources():
+@pytest.mark.asyncio
+async def test_has_local_resources():
     with TemporaryDirectory() as tmpdir:
-        download(tmpdir, 'https://clojure.org')
+        await download('https://clojure.org', Path(tmpdir))
         expected = os.path.join(
             tmpdir,
             'clojure-org_files',
@@ -45,18 +39,20 @@ def test_has_local_resources():
         assert len(os.listdir(os.path.join(expected))) != 0
 
 
-def test_404_exception():
+@pytest.mark.asyncio
+async def test_404_exception():
     with TemporaryDirectory() as tmpdir:
-        with pytest.raises(HTTPError) as excinfo:
-            url = 'https://grishaev.me/bookshelf2'
-            download(tmpdir, url)
-        assert '404 Client Error' in str(excinfo.value)
+        with pytest.raises(LoadingError) as excinfo:
+            url = 'https://clo.fdd'
+            await download(url, Path(tmpdir))
+        assert 'HTTP client error' in str(excinfo.value)
 
 
-def test_permissions_exception():
+@pytest.mark.asyncio
+async def test_permissions_exception():
     with TemporaryDirectory() as tmpdir:
         os.chmod(tmpdir, 400)
         with pytest.raises(PermissionError) as excinfo:
             url = 'https://hexlet.io/courses'
-            download(tmpdir, url)
+            await download(url, Path(tmpdir))
         assert 'Permission denied' in str(excinfo.value)

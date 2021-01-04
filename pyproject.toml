@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "altvec_page_loader"
-version = "0.4.4"
+version = "0.5.0"
 description = "Page loader project on hexlet"
 authors = ["altvec <me@sergeykalistratov.com>"]
 repository = "https://github.com/altvec/python-project-lvl3"
@@ -12,14 +12,14 @@ packages = [
 classifiers = [
     "Programming Language :: Python :: 3",
     "Environment :: Console",
-    "License :: Freeware", 
+    "License :: Freeware",
 ]
 
 [tool.poetry.dependencies]
 python = "^3.6"
-requests = "^2.25"
 beautifulsoup4 = "^4.9"
-progress = "^1.5"
+aiohttp = "^3.7.3"
+tqdm = "^4.55.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.1"
@@ -27,6 +27,7 @@ wemake-python-styleguide = "^0.14.1"
 flake8 = "^3.8"
 coverage = "^5.3"
 pytest-cov = "^2.10.1"
+pytest-asyncio = "^0.14.0"
 
 [tool.poetry.scripts]
 page-loader = "page_loader.scripts.page_loader:main"
