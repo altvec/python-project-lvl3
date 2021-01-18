@@ -26,7 +26,7 @@ pytest = "^6.1"
 wemake-python-styleguide = "^0.14.1"
 flake8 = "^3.8"
 coverage = "^5.3"
-pytest-cov = "^2.10.1"
+pytest-cov = "^2.11.0"
 
 [tool.poetry.scripts]
 page-loader = "page_loader.scripts.page_loader:main"
