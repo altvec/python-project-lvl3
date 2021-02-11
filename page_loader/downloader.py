@@ -6,7 +6,6 @@ import logging
 import os
 
 from bs4 import BeautifulSoup
-
 from page_loader.common import get_url, save
 from page_loader.names import create_html_file_name, create_resources_dir_name
 from page_loader.resources import download_resources, find_resources

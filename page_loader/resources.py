@@ -4,10 +4,9 @@
 import logging
 import os
 
-from progress.bar import IncrementalBar
-
 from page_loader.common import LOCAL_RESOURCES, create_dir, get_url, save
 from page_loader.names import create_resource_name
+from progress.bar import IncrementalBar
 
 log = logging.getLogger(__name__)
 

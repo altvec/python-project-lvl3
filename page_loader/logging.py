@@ -5,7 +5,7 @@
 import logging
 import sys
 
-LEVELS = (INFO, DEBUG) = ('INFO', 'DEBUG')
+LEVELS = (INFO, DEBUG) = ('INFO', 'DEBUG')  # noqa: WPS110
 
 
 def configure_logger(log_level):
