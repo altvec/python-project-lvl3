@@ -22,7 +22,7 @@ beautifulsoup4 = "^4.10"
 progress = "^1.6"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2"
+pytest = "^7.0"
 wemake-python-styleguide = "^0.16.0"
 flake8 = "^4.0"
 coverage = "^6.1"
