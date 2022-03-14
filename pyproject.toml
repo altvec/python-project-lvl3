@@ -23,7 +23,7 @@ progress = "^1.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
-wemake-python-styleguide = "^0.16.0"
+wemake-python-styleguide = "^0.16.1"
 flake8 = "^4.0"
 coverage = "^6.1"
 pytest-cov = "^3.0.0"
