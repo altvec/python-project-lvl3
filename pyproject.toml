@@ -18,7 +18,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.6"
 requests = "^2.26"
-beautifulsoup4 = "^4.10"
+beautifulsoup4 = "^4.11"
 progress = "^1.6"
 
 [tool.poetry.dev-dependencies]
